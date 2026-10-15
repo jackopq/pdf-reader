@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#2f6f5e" />
+  <title>英文 PDF 朗讀機</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="top">
+    <h1>📖 英文 PDF 朗讀機</h1>
+    <p class="sub">上傳英文 PDF，幫你一句一句唸出來</p>
+  </header>
+
+  <main>
+    <!-- 模型載入狀態 -->
+    <section class="card" id="modelCard">
+      <div class="row">
+        <span id="modelStatus">正在準備語音引擎…（第一次約需下載 90MB，之後會記住）</span>
+      </div>
+      <div class="bar"><div class="bar-fill" id="modelBar"></div></div>
+    </section>
+
+    <!-- 上傳 -->
+    <section class="card">
+      <label class="upload" for="fileInput">
+        <span class="upload-icon">📄</span>
+        <span id="uploadLabel">點這裡選擇 PDF 檔案</span>
+      </label>
+      <input id="fileInput" type="file" accept="application/pdf,.pdf" hidden />
+      <p class="hint" id="pdfStatus"></p>
+    </section>
+
+    <!-- 設定 -->
+    <section class="card hidden" id="settingsCard">
+      <div class="field">
+        <label for="voiceSelect">聲音</label>
+        <select id="voiceSelect">
+          <option value="af_heart">美式・女聲（Heart）</option>
+          <option value="af_bella">美式・女聲（Bella）</option>
+          <option value="am_michael">美式・男聲（Michael）</option>
+          <option value="bf_emma">英式・女聲（Emma）</option>
+          <option value="bm_george">英式・男聲（George）</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>語音準備進度</label>
+        <div class="bar"><div class="bar-fill" id="genBar"></div></div>
+        <span class="hint" id="genStatus"></span>
+      </div>
+      <button class="btn secondary" id="downloadBtn">⬇️ 下載音檔（目前速度）</button>
+      <p class="hint" id="downloadStatus"></p>
+    </section>
+
+    <!-- 文字內容 -->
+    <section class="card hidden" id="textCard">
+      <p class="hint">👆 點任何一句，就會從那裡開始唸</p>
+      <div id="textView"></div>
+    </section>
+  </main>
+
+  <!-- 底部播放列 -->
+  <footer class="player hidden" id="player">
+    <div class="speed">
+      <span>速度</span>
+      <input type="range" id="speedRange" min="0.5" max="1.5" step="0.1" value="1" />
+      <strong id="speedValue">1.0x</strong>
+    </div>
+    <div class="speed-presets">
+      <button data-speed="0.6">0.6x</button>
+      <button data-speed="0.8">0.8x</button>
+      <button data-speed="1">1.0x</button>
+      <button data-speed="1.2">1.2x</button>
+    </div>
+    <div class="controls">
+      <button class="ctl" id="prevBtn" aria-label="上一句">⏮</button>
+      <button class="ctl play" id="playBtn" aria-label="播放">▶</button>
+      <button class="ctl" id="nextBtn" aria-label="下一句">⏭</button>
+    </div>
+    <div class="now" id="nowStatus">準備好了就按 ▶</div>
+  </footer>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>
